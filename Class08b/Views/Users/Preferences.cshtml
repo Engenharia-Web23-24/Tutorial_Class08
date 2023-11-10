@@ -9,8 +9,9 @@
     <div class="col-md-4">
         <form asp-action="Preferences">
             <div class="form-group">
-                <input type="radio" name="mode" value="light" @if (ViewBag.mode == "light") { <text> checked</text> } />Light <br />
-                <input type="radio" name="mode" value="dark" @if (ViewBag.mode == "dark") { <text> checked</text> } />Dark <br />
+                <input type="radio" name="mode" value="light" checked=@(ViewBag.mode == "light") />Light 
+                <br />
+                <input type="radio" name="mode" value="dark" checked=@(ViewBag.mode == "dark") />Dark
             </div>
             <div class="form-group">
                 <input type="submit" value="Go" class="btn btn-primary" />

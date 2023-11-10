@@ -57,6 +57,7 @@ namespace Class08b.Controllers
 
             return View();
         }
+
         [HttpPost]
         public IActionResult Preferences(string mode)
         {
@@ -64,5 +65,34 @@ namespace Class08b.Controllers
             HttpContext.Response.Cookies.Append("viewMode", mode, new CookieOptions { Expires = DateTime.Now.AddYears(1) });
             return RedirectToAction("Index", "Home");
         }
+
+        #region HOMEWORK
+
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Register(User newUser)
+        {
+            if (ModelState.IsValid)
+            {
+                if (_context.User.Any(u => u.Username == newUser.Username))
+                    ModelState.AddModelError("username", "Username already exists. Please define another.");
+                else
+                {
+                    _context.Add(newUser);
+                    _context.SaveChanges();
+
+                    HttpContext.Session.SetString("user", newUser.Username); // After successful registration, automatic login is made
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            return View();
+        }
+
+        #endregion HOMEWORK
     }
+
 }
